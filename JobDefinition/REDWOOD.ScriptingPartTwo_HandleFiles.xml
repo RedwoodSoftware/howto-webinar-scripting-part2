@@ -1,0 +1,103 @@
+<?xml version='1.0'?>
+<JobDefinition>
+  <Comment />
+  <Description>List all files in the directory of the file event</Description>
+  <Name>ScriptingPartTwo_HandleFiles</Name>
+  <Partition type="Partition" path="REDWOOD" />
+  <ParentApplication type="Application" path="REDWOOD.Webinars.REDWOOD.Scripting Part Two.$2" />
+  <EquivalentObject>false</EquivalentObject>
+  <CriticalProcess>false</CriticalProcess>
+  <KeepForce>false</KeepForce>
+  <KeepAmount>10</KeepAmount>
+  <KeepUnits>Jobs</KeepUnits>
+  <KeepType>System</KeepType>
+  <KeepJobsInStatus />
+  <KeepInStatusAmount />
+  <KeepInStatusUnit />
+  <MinimumOpenDurationExpression />
+  <Overdue>false</Overdue>
+  <OverdueStatus />
+  <OverviewFormat />
+  <Priority />
+  <MaxPriority>100</MaxPriority>
+  <RestartCount />
+  <ReturncodeMapToCompleted />
+  <HoldOnSubmit>false</HoldOnSubmit>
+  <TopLevel>true</TopLevel>
+  <Template>false</Template>
+  <Maintenance>false</Maintenance>
+  <ReactionJobType />
+  <EvaluationOwnerType>SystemDefault</EvaluationOwnerType>
+  <CompletionStrategy>Default</CompletionStrategy>
+  <OverdueEventDefinition />
+  <DefaultOutputFormat />
+  <JobDefinitionType type="JobDefinitionType" path="GLOBAL.BASH" />
+  <DefaultLogFormat />
+  <DefaultQueue />
+  <Resource />
+  <TimeWindow />
+  <TimeWindowTimeZone />
+  <JobTimeZone />
+  <RELRelatedLibrary />
+  <ActionSubject />
+  <JobDefinitionAction>
+    <Enabled>true</Enabled>
+    <Source><![CDATA[{
+  for (JobWaitEvent jwe: jcsJob.getJobWaitEvents())
+  {
+    EventDefinition ed = jwe.getEventDefinition();
+    ed.clearAllPending();
+    ed.clear();
+  }
+}]]></Source>
+    <ActionSubject />
+    <Type>PostRunning</Type>
+    <Library type="Library" path="GLOBAL.None" />
+  </JobDefinitionAction>
+  <JobDefinitionParameter>
+    <Comment />
+    <Description />
+    <Name>filename</Name>
+    <DataLength />
+    <DataPrecision />
+    <DataScale />
+    <DataType>String</DataType>
+    <DefaultExpression><![CDATA[=waitEvents.ScriptingPartTwo_FileEvent.finalPath]]></DefaultExpression>
+    <DefaultValueEditable />
+    <Direction>In</Direction>
+    <SimpleConstraintType>None</SimpleConstraintType>
+    <SimpleConstraintData />
+    <SimpleConstraintMessage />
+    <SimpleConstraintOptional>false</SimpleConstraintOptional>
+    <SimpleConstraintSort>Ascending</SimpleConstraintSort>
+    <Display>true</Display>
+    <Password>false</Password>
+    <DisplayOrder>0</DisplayOrder>
+    <Editable>Always</Editable>
+    <GroupName />
+    <PartOfKey>false</PartOfKey>
+    <Nullable>true</Nullable>
+    <Runtime>true</Runtime>
+    <JobFormat />
+    <Array>false</Array>
+    <ArrayMinLength>0</ArrayMinLength>
+    <ArrayMaxLength />
+    <ArrayDuplicateValuesAllowed>false</ArrayDuplicateValuesAllowed>
+    <ArraySorted>false</ArraySorted>
+    <ParameterMappingType>Normal</ParameterMappingType>
+    <JobDefinitionParameterSubType />
+  </JobDefinitionParameter>
+  <JobDefinitionWaitEvent>
+    <ClearsEvent>false</ClearsEvent>
+    <ClearComment />
+    <AutoSubmit>Never</AutoSubmit>
+    <CreatedBySystem>false</CreatedBySystem>
+    <EventDefinition type="EventDefinition" path="REDWOOD.ScriptingPartTwo_FileEvent" />
+  </JobDefinitionWaitEvent>
+  <Script>
+    <Source><![CDATA[ls -ltr $(dirname $filename)]]></Source>
+    <RunAsUser />
+    <RemoteRunAsUser />
+    <Library type="Library" path="GLOBAL.None" />
+  </Script>
+</JobDefinition>

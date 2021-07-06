@@ -1,0 +1,35 @@
+<?xml version='1.0'?>
+<Report>
+  <JobDefinition type="JobDefinition" path="REDWOOD.Audit_UserLastLoginTimes" />
+  <Query><![CDATA[select max(l.LoginDateTime), s.Name
+from Subject s
+left outer join AuditSubjectLogin l
+on s.Name = l.User
+where s.Type = 'U' group by s.Name]]></Query>
+  <Limit>50000</Limit>
+  <ReportQueryType>SQL</ReportQueryType>
+  <QueryFilter />
+  <ReportColumn>
+    <Comment />
+    <Description />
+    <Name>Subject.Name</Name>
+    <Display>true</Display>
+    <ColumnFormat>Formatted</ColumnFormat>
+    <Value>Subject.Name</Value>
+    <ColumnOrder>0</ColumnOrder>
+  </ReportColumn>
+  <ReportColumn>
+    <Comment />
+    <Description />
+    <Name>LastLoginTime</Name>
+    <Display>true</Display>
+    <ColumnFormat>Formatted</ColumnFormat>
+    <Value>=REDWOOD.Custom_Date.fromMillis(Logic.if(Function.MAX === &apos;null&apos;, 0, Function.MAX))</Value>
+    <ColumnOrder>1</ColumnOrder>
+  </ReportColumn>
+  <ReportSort>
+    <SortOrder>0</SortOrder>
+    <Ascending>false</Ascending>
+    <ReportColumn type="ReportColumn" path="REDWOOD.Audit_UserLastLoginTimes.Subject%2e;Name" />
+  </ReportSort>
+</Report>

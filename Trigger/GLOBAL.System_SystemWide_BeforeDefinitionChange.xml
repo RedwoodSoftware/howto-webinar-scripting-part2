@@ -1,0 +1,48 @@
+<?xml version='1.0'?>
+<Trigger>
+  <Comment />
+  <Description>Enforce Site Standards</Description>
+  <Name>System_SystemWide_BeforeDefinitionChange</Name>
+  <Partition type="Partition" path="GLOBAL" />
+  <ParentApplication type="Application" path="REDWOOD.Webinars.REDWOOD.Scripting Part Two.$2" />
+  <TriggerPoint>BeforeDefinitionChange</TriggerPoint>
+  <Enabled>false</Enabled>
+  <LogLevel>None</LogLevel>
+  <MaxLogSize>1</MaxLogSize>
+  <MaxBackupFiles>5</MaxBackupFiles>
+  <LogFileEnabled>false</LogFileEnabled>
+  <ExecutionOrder>0</ExecutionOrder>
+  <Source><![CDATA[{
+  SchedulerEntity se = jcsTriggerContext.getSchedulerEntity();
+  // ignore deleted items, Queues and Process Servers
+  if (!se.isDeleted() && !(se instanceof Queue) && !(se instanceof ProcessServer))
+  {
+    if (se instanceof ApplicationObject)
+    {
+      if (((ApplicationObject)se).getParentApplication() == null)
+      {
+        throw new RuntimeException("Always assign an Application");
+      }
+    }
+    if (se instanceof JobDefinition)
+    {
+      JobDefinition jd = (JobDefinition)se;
+      if (jd.isTopLevel() && jd.getKeepAmount() == null)
+      {
+        throw new RuntimeException("Always provide a Keep Clause");
+      }
+      if (jd.getDefaultQueue() == null)
+      {
+        throw new RuntimeException("Always assign a Default Queue");
+      }
+      if (jd.getDescription() == null)
+      {
+        throw new RuntimeException("Always provide a Description");
+      }
+    }
+  }
+}
+]]></Source>
+  <Library type="Library" path="GLOBAL.None" />
+  <ActionSubject />
+</Trigger>

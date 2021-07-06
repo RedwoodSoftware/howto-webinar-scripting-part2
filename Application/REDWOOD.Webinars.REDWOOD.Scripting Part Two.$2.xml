@@ -1,0 +1,8 @@
+<?xml version='1.0'?>
+<Application>
+  <Comment />
+  <Description />
+  <Name>Scripting Part Two</Name>
+  <Partition type="Partition" path="REDWOOD" />
+  <ParentApplication type="Application" path="REDWOOD.Webinars.$2" />
+</Application>

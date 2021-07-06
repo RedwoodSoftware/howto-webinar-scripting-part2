@@ -1,0 +1,12 @@
+<?xml version='1.0'?>
+<EventDefinition>
+  <Comment />
+  <Description>Waiting for a file</Description>
+  <Name>ScriptingPartTwo_FileEvent</Name>
+  <Partition type="Partition" path="REDWOOD" />
+  <ParentApplication type="Application" path="REDWOOD.Webinars.REDWOOD.Scripting Part Two.$2" />
+  <RequiresCommentOnRaise>false</RequiresCommentOnRaise>
+  <DefaultRaiseComment />
+  <RequiresCommentOnClear>false</RequiresCommentOnClear>
+  <DefaultClearComment />
+</EventDefinition>

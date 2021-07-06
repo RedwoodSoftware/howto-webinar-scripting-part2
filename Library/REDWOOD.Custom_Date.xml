@@ -1,0 +1,44 @@
+<?xml version='1.0'?>
+<Library>
+  <Comment />
+  <Description>A Library containing useful date functions</Description>
+  <Name>Custom_Date</Name>
+  <Partition type="Partition" path="REDWOOD" />
+  <ParentApplication type="Application" path="REDWOOD.Webinars.REDWOOD.Scripting Part Two.$2" />
+  <LibrarySource>
+    <Source><![CDATA[package com.redwood.scheduler.custom.date;
+
+import com.redwood.scheduler.api.date.DateTimeZone;
+
+public class REL
+{
+  public static DateTimeZone fromMillis(Long millis)
+  {
+    if (millis == null)
+    {
+      return null;
+    }
+    return new DateTimeZone(millis.longValue());
+  }
+
+  public static DateTimeZone fromMillis(Long millis, String timeZone)
+  {
+    if (millis == null)
+    {
+      return null;
+    }
+    return new DateTimeZone(java.util.TimeZone.getTimeZone(timeZone), millis.longValue());
+  }
+}]]></Source>
+  </LibrarySource>
+  <RELEntryPoint>
+    <Name>fromMillis</Name>
+    <FQClassName>com.redwood.scheduler.custom.date.REL</FQClassName>
+    <MethodSignature>fromMillis(Long)</MethodSignature>
+  </RELEntryPoint>
+  <RELEntryPoint>
+    <Name>fromMillisTZ</Name>
+    <FQClassName>com.redwood.scheduler.custom.date.REL</FQClassName>
+    <MethodSignature>fromMillis(Long, String)</MethodSignature>
+  </RELEntryPoint>
+</Library>
